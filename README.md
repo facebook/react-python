@@ -31,7 +31,7 @@ for jsx_path, js_path in my_paths:
     transformer.transform(jsx_path, js_path)
 
 # For a single file, you can use a shortcut method.
-jsx.transform('path/to/input/file.jsx', 'path/to/output/file.js')
+jsx.transform('path/to/input/file.jsx', js_path='path/to/output/file.js')
 ```
 
 You can also use ``transform_string(jsx)`` method to transform strings:
