@@ -14,8 +14,7 @@ class Renderer(object):
             self.classes = {}
 
     def load_class(self, name, path):
-        with open(path) as f:
-            self.classes[name] = jsx.transform_string(f.read())
+        self.classes[name] = jsx.transform(path)
 
     def render(self, path):
         with open(path) as f:
