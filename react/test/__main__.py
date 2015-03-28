@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from jsx import *
+from render import *
 from source import *
 
 import unittest

@@ -77,7 +77,11 @@ render.render('foo.jsx')
 render.render('foo.jsx')
 
 # React classes can be loaded, and rendered later
-# foo.jsx < 'React.createClass({render: function() { return <div>{this.props.bar}</div>; })'
+render.load_class_string('Foo', 'React.createClass({render: function() { return <div>{this.props.bar}</div; }})')
+render.render_string('<Foo bar="bang" />')
+
+# Classes can also be loaded from files
+# foo.jsx < 'React.createClass({render: function() { return <div>{this.props.bar}</div>; }})'
 render.load_class('Foo', 'foo.jsx')
 render.render_string('<Foo bar="bang" />')
 # > '<div ...>bang</div>'

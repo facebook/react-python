@@ -2,6 +2,7 @@ from unittest import TestCase
 from os.path import join
 
 from react.render import Renderer
+from react.test import TEST_ROOT
 
 
 class TestRender(TestCase):
@@ -53,3 +54,15 @@ class TestRender(TestCase):
 
         self.assertIn('bar</div>', result)
 
+    def test_load_class_string(self):
+        self.renderer.load_class_string('Test',  (
+            'React.createClass({'
+            '    render: function() {'
+            '        return <div>{this.props.foo}</div>;'
+            '    }'
+            '})'
+        ))
+
+        result = self.renderer.render_string('<Test foo="bar" />')
+
+        self.assertIn('bar</div>', result)
