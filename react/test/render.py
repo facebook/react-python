@@ -1,7 +1,7 @@
 from unittest import TestCase
 from os.path import join
 
-from react.render import Renderer
+from react.render import Renderer, RenderError
 from react.test import TEST_ROOT
 
 
@@ -66,3 +66,7 @@ class TestRender(TestCase):
         result = self.renderer.render_string('<Test foo="bar" />')
 
         self.assertIn('bar</div>', result)
+
+    def test_exception(self):
+        with self.assertRaisesRegexp(RenderError, r'ReferenceError'):
+            self.renderer.render_string('<div>{foo}</div>')
