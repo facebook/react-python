@@ -20,6 +20,8 @@ Alternatively, add it into your `requirements` file:
 
 ## Usage
 
+### Transforming JSX
+
 Transform your JSX files via the provided `jsx` module::
 
 ```python
@@ -50,6 +52,36 @@ PIPELINE_COMPILERS = (
 )
 ```
 
+### Rendering React components
+
+React components can be renderToString'd, useful for generating markup server-side:
+
+```
+python
+
+from react import render
+
+# Render JSX strings, variables can be passed in and will be JSONified
+render.render_string('<div>{foo}</div>', foo='bar')
+# > '<div data-reactid="..." data-react-checksum="...">bar</div>'
+
+render.render_string('<div>{foo.bar}</div>', foo={'bar': 'bang'})
+# > '<div ...>bang</div>'
+
+# Single-expression JSX files can be rendered:
+# foo.jsx < '<div>Hello, World!</div>'
+render.render('foo.jsx')
+
+# In this case, expression can be IIFE'd with context:
+# foo.jsx < '(function() { var foo = 'bar'; return <div>{foo}</div> }())'
+render.render('foo.jsx')
+
+# React classes can be loaded, and rendered later
+# foo.jsx < 'React.createClass({render: function() { return <div>{this.props.bar}</div>; })'
+render.load_class('Foo', 'foo.jsx')
+render.render_string('<Foo bar="bang" />')
+# > '<div ...>bang</div>'
+```
 
 ## License
 
