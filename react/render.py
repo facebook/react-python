@@ -45,8 +45,31 @@ class Renderer(object):
             }}())
         """.format(self.react, classes, context, transformed)
 
-        return execjs.eval(expression)
+        try:
+            return execjs.eval(expression)
+        except execjs.ProgramError as e:
+            raise RenderError(e.message)
 
 
-render = Renderer()
+class RenderError(Exception):
+    def __init__(self, message):
+        Exception.__init__(self, message)
 
+
+default_renderer = Renderer()
+
+
+def load_class(name, path):
+    return default_renderer.load_class(name, path)
+
+
+def load_class_string(name, src):
+    return default_renderer.load_class_string(name, src)
+
+
+def render(path):
+    return default_renderer.render(path)
+
+
+def render_string(src, **context):
+    return default_renderer.render_string(src, **context)
