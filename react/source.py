@@ -23,5 +23,4 @@ def path_for(react_file):
     path = os.path.join(JS_ROOT, react_file)
     if os.path.isfile(path):
         return path
-    else:
-        raise IOError('%s: Could not find specified React file.' % path)
+    raise IOError('%s: Could not find specified React file.' % path)
