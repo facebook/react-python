@@ -17,8 +17,6 @@
 from jsx import *
 from source import *
 
-import unittest
-
-
 if __name__ == '__main__':
+    import unittest
     unittest.main()
