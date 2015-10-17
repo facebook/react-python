@@ -23,11 +23,9 @@ from react import source
 class TestSource(unittest.TestCase):
 
     def test_path_for(self):
-        JS_ROOT = source.JS_ROOT
-
         self.assertEquals(
             source.path_for('JSXTransformer.js'),
-            os.path.abspath(os.path.join(JS_ROOT, 'JSXTransformer.js')))
+            os.path.abspath(os.path.join(source.JS_ROOT, 'JSXTransformer.js')))
 
         self.assertRaises(
             IOError,
