@@ -58,8 +58,7 @@ class JSXTransformer(object):
 
 
 class TransformError(Exception):
-    def __init__(self, message):
-        Exception.__init__(self, message)
+    pass
 
 
 def transform(jsx_path, **opts):
