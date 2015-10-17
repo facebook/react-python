@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from setuptools import setup, find_packages
 
 from react import VERSION
