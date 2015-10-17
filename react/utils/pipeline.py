@@ -33,9 +33,8 @@ class JSXCompiler(CompilerBase):
         return path.endswith('.jsx')
 
     def compile_file(self, infile, outfile, outdated=False, force=False):
-        if not outdated and not force:
-            return
-        try:
-            return self.transformer.transform(infile, outfile)
-        except TransformError as e:
-            raise CompilerError(str(e))
+        if outdated or force:
+            try:
+                return self.transformer.transform(infile, outfile)
+            except TransformError as e:
+                raise CompilerError(str(e))
