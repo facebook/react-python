@@ -11,7 +11,7 @@ setup(
     license='Apache-2.0',
     description='Python bridge to JSX & the React JavaScript library.',
     long_description=open('DESCRIPTION').read(),
-    classifiers =[
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',

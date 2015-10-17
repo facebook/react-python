@@ -63,5 +63,6 @@ class TransformError(Exception):
 def transform(jsx_path, **opts):
     return JSXTransformer().transform(jsx_path, **opts)
 
+
 def transform_string(jsx, **opts):
     return JSXTransformer().transform_string(jsx, **opts)

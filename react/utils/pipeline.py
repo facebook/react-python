@@ -18,6 +18,7 @@ from pipeline.compilers import CompilerBase
 from pipeline.exceptions import CompilerError
 from react.jsx import JSXTransformer, TransformError
 
+
 class JSXCompiler(CompilerBase):
     output_extension = 'js'
 

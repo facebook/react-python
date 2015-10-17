@@ -18,7 +18,7 @@ from unittest import TestCase
 
 
 class TestSource(TestCase):
-    
+
     def test_path_for(self):
         JS_ROOT = source.JS_ROOT
 
