@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import dirname, abspath
+import os
 
-
-TEST_ROOT = abspath(dirname(__file__))
+TEST_ROOT = os.path.abspath(os.path.dirname(__file__))

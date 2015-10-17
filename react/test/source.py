@@ -12,19 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import abspath, join
+import os
+import unittest
+
 from react import source
-from unittest import TestCase
 
 
-class TestSource(TestCase):
+class TestSource(unittest.TestCase):
 
     def test_path_for(self):
         JS_ROOT = source.JS_ROOT
 
         self.assertEquals(
             source.path_for('JSXTransformer.js'),
-            abspath(join(JS_ROOT, 'JSXTransformer.js')))
+            os.path.abspath(os.path.join(JS_ROOT, 'JSXTransformer.js')))
 
         self.assertRaises(
             IOError,

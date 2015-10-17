@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import abspath, dirname, isfile, join
+import os
 
-JS_ROOT = abspath(join(dirname(__file__), 'js/react'))
+JS_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), 'js/react'))
 
 
 def path_for(react_file):
-    path = join(JS_ROOT, react_file)
-    if isfile(path):
+    path = os.path.join(JS_ROOT, react_file)
+    if os.path.isfile(path):
         return path
     else:
         raise IOError('%s: Could not find specified React file.' % path)
