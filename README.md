@@ -32,6 +32,10 @@ for jsx_path, js_path in my_paths:
 
 # For a single file, you can use a shortcut method.
 jsx.transform('path/to/input/file.jsx', js_path='path/to/output/file.js')
+
+# You can also define the path to react.
+transformer = jsx.JSXTransformer('path/to/react')
+jsx.transform('path/to/input/file.jsx', js_path='path/to/output/file.js', react_path='...')
 ```
 
 You can also use ``transform_string(jsx)`` method to transform strings:
