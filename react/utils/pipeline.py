@@ -22,10 +22,11 @@ from react.jsx import JSXTransformer, TransformError
 
 
 class JSXCompiler(CompilerBase):
+
     output_extension = 'js'
 
     def __init__(self, *args, **kwargs):
-        CompilerBase.__init__(self, *args, **kwargs)
+        super(JSXCompiler, self).__init__(*args, **kwargs)
         self.transformer = JSXTransformer()
 
     def match_file(self, path):
