@@ -16,7 +16,7 @@ from os.path import join
 from react import jsx
 from react.test import TEST_ROOT
 from unittest import TestCase
-
+from six import text_type
 
 class TestJSXTransformer(TestCase):
 
@@ -27,7 +27,7 @@ class TestJSXTransformer(TestCase):
         with open(js_path, 'rU') as js:
             self.assertEquals(
                 jsx.transform(jsx_path),
-                unicode(js.read()))
+                text_type(js.read()))
 
         malformed_path = join(TEST_ROOT, 'files/malformed.jsx')
         self.assertRaises(
