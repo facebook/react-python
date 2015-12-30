@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 # Copyright 2013 Facebook, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +14,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import join
+import os
+import unittest
+
 from react import jsx
 from react.test import TEST_ROOT
-from unittest import TestCase
 
 
-class TestJSXTransformer(TestCase):
+class TestJSXTransformer(unittest.TestCase):
 
     def test_transform(self):
-        jsx_path = join(TEST_ROOT, 'files/test.jsx')
-        js_path = join(TEST_ROOT, 'files/test.js')
+        jsx_path = os.path.join(TEST_ROOT, 'files/test.jsx')
+        js_path = os.path.join(TEST_ROOT, 'files/test.js')
 
         with open(js_path, 'rU') as js:
             self.assertEquals(
                 jsx.transform(jsx_path),
                 unicode(js.read()))
 
-        malformed_path = join(TEST_ROOT, 'files/malformed.jsx')
+        malformed_path = os.path.join(TEST_ROOT, 'files/malformed.jsx')
         self.assertRaises(
             jsx.TransformError,
             lambda: jsx.transform(malformed_path))

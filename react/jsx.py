@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 # Copyright 2013 Facebook, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+
 import execjs
-import react.source
 
 
 class JSXTransformer(object):
 
     JSX_TRANSFORMER_JS_EXPR = '(global.JSXTransformer || module.exports)'
+    react_path = os.path.abspath(os.path.join(__file__, 'js', 'react'))
 
-    def __init__(self):
-        path = react.source.path_for('JSXTransformer.js')
-        with open(path, 'rU') as f:
+    def __init__(self, react_path=None):
+        if react_path is not None:
+            self.react_path = react_path
+        with open(os.path.join(self.react_path, 'JSXTransformer.js'), 'rU') as f:
             self.context = execjs.compile(f.read())
 
     def transform_string(self, jsx, harmony=False, strip_types=False):
@@ -56,12 +61,14 @@ class JSXTransformer(object):
 
 
 class TransformError(Exception):
-    def __init__(self, message):
-        Exception.__init__(self, message)
+    pass
 
 
 def transform(jsx_path, **opts):
-    return JSXTransformer().transform(jsx_path, **opts)
+    react_path = opts.pop('react_path', None)
+    return JSXTransformer(react_path=react_path).transform(jsx_path, **opts)
+
 
 def transform_string(jsx, **opts):
-    return JSXTransformer().transform_string(jsx, **opts)
+    react_path = opts.pop('react_path', None)
+    return JSXTransformer(react_path=react_path).transform_string(jsx, **opts)

@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 # Copyright 2013 Facebook, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,20 +20,21 @@ from pipeline.compilers import CompilerBase
 from pipeline.exceptions import CompilerError
 from react.jsx import JSXTransformer, TransformError
 
+
 class JSXCompiler(CompilerBase):
+
     output_extension = 'js'
 
     def __init__(self, *args, **kwargs):
-        CompilerBase.__init__(self, *args, **kwargs)
+        super(JSXCompiler, self).__init__(*args, **kwargs)
         self.transformer = JSXTransformer()
 
     def match_file(self, path):
         return path.endswith('.jsx')
 
     def compile_file(self, infile, outfile, outdated=False, force=False):
-        if not outdated and not force:
-            return
-        try:
-            return self.transformer.transform(infile, outfile)
-        except TransformError as e:
-            raise CompilerError(str(e))
+        if outdated or force:
+            try:
+                return self.transformer.transform(infile, outfile)
+            except TransformError as e:
+                raise CompilerError(str(e))
