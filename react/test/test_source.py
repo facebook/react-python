@@ -12,11 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from jsx import *
-from source import *
+from os.path import abspath, join
+from react import source
+from unittest import TestCase
 
-import unittest
 
+class TestSource(TestCase):
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_path_for(self):
+        JS_ROOT = source.JS_ROOT
+
+        self.assertEquals(
+            source.path_for('JSXTransformer.js'),
+            abspath(join(JS_ROOT, 'JSXTransformer.js')))
+
+        self.assertRaises(
+            IOError,
+            lambda: source.path_for('NonexistantFile.js'))
