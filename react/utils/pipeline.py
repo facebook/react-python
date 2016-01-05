@@ -14,6 +14,7 @@
 
 from __future__ import absolute_import
 
+from django.conf import settings
 from pipeline.compilers import CompilerBase
 from pipeline.exceptions import CompilerError
 from react.jsx import JSXTransformer, TransformError
@@ -32,6 +33,6 @@ class JSXCompiler(CompilerBase):
         if not outdated and not force:
             return
         try:
-            return self.transformer.transform(infile, outfile)
+            return self.transformer.transform(infile, outfile, **getattr(settings, 'JSX_OPTS'))
         except TransformError as e:
             raise CompilerError(str(e))
