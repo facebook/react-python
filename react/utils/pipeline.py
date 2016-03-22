@@ -33,14 +33,16 @@ class JSXCompiler(CompilerBase):
         if not outdated and not force:
             return
 
+        # pipeline < 1.6 will raise `AttributeError`
+        # pipeline >= 1.6 will raise `KeyError`
         try:
             harmony = settings.REACT_HARMONY
-        except KeyError:
+        except (KeyError, AttributeError):
             harmony = False
 
         try:
             strip_types = settings.REACT_STRIP_TYPES
-        except KeyError:
+        except (KeyError, AttributeError):
             strip_types = False
 
         try:
