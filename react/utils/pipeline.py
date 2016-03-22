@@ -16,6 +16,7 @@ from __future__ import absolute_import
 
 from pipeline.compilers import CompilerBase
 from pipeline.exceptions import CompilerError
+from pipeline.conf import settings
 from react.jsx import JSXTransformer, TransformError
 
 class JSXCompiler(CompilerBase):
@@ -31,7 +32,25 @@ class JSXCompiler(CompilerBase):
     def compile_file(self, infile, outfile, outdated=False, force=False):
         if not outdated and not force:
             return
+
+        # pipeline < 1.6 will raise `AttributeError`
+        # pipeline >= 1.6 will raise `KeyError`
         try:
-            return self.transformer.transform(infile, outfile)
+            harmony = settings.REACT_HARMONY
+        except (KeyError, AttributeError):
+            harmony = False
+
+        try:
+            strip_types = settings.REACT_STRIP_TYPES
+        except (KeyError, AttributeError):
+            strip_types = False
+
+        try:
+            return self.transformer.transform(
+                infile,
+                outfile,
+                harmony=harmony,
+                strip_types=strip_types,
+            )
         except TransformError as e:
             raise CompilerError(str(e))
